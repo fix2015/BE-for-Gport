@@ -66,7 +66,11 @@ require('./app/routes/places')(app);
 require('./app/routes/edit')(app);
 require('./app/routes/rooms')(app);
 // launch ======================================================================
-var server = app.listen(port);
+//app.listen(port);
+var server = app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
 notification = socketIo(server);
 
 console.log('The magic happens on port ' + port);

@@ -1,10 +1,9 @@
-// load all the things we need
-var LocalStrategy       = require('passport-local').Strategy;
+// var LocalStrategy       = require('passport-local').Strategy;
 var FacebookStrategy    = require('passport-facebook').Strategy;
 var TwitterStrategy     = require('passport-twitter').Strategy;
 var GoogleStrategy      = require('passport-google-oauth').OAuth2Strategy;
 var VKontakteStrategy = require('passport-vkontakte').Strategy;
-var OdnoklassnikiStrategy = require('passport-odnoklassniki').Strategy;
+// var OdnoklassnikiStrategy = require('passport-odnoklassniki').Strategy;
 var http = require('http');
 var request = require('request');
 var models  = require('../app/models');

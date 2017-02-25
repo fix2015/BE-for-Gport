@@ -4,7 +4,7 @@
 var data={}
 
 data.domain = 'http://gport-map.tk/'
-data.domain = 'http://localhost:8080/'
-data.be = 'http://localhost:8080/'
+data.domain = 'https://gport.herokuapp.com/'
+data.be = 'https://gport.herokuapp.com/'
 
 module.exports = data;

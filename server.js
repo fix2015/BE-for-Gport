@@ -63,6 +63,7 @@ var comment = require('./app/controller/comment.js');
 require('./app/routes/auth')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes/comment')(app, comment); // load our routes for comment
 require('./app/routes/places')(app);
+require('./app/routes/edit')(app);
 require('./app/routes/rooms')(app);
 // launch ======================================================================
 var server = app.listen(port);

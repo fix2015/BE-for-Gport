@@ -148,13 +148,12 @@ class Place extends Component {
         }
     }
     render() {
-        var place = this.props.place;
-        var end = this.state.endPoint
+        let place = this.props.place;
+        let end = this.state.endPoint
             .map(function(data){
                 return   <option value={data.name}>{data.label}</option>
             })
-        var distance = this.state.legs.distance ? this.state.legs.distance.value : '';
-        var put =  <h4>Дорога до - {distance}</h4>
+        let distance = this.state.legs.distance ? this.state.legs.distance.value : '';
         return (
             <div>
                 <div className="col-md-12 place-title">
@@ -178,7 +177,7 @@ class Place extends Component {
                             </a>
                     </div>
                     <div className="col-md-8">
-                        <SmallInformationBoard data={place}></SmallInformationBoard>
+                        <SmallInformationBoard data={place} edit="false"></SmallInformationBoard>
                     </div>
                 </div>
                 <div className="col-md-12 text-left">

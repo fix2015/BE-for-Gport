@@ -6,6 +6,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 var App = require('../../conteiner/App');
 var Place = require('../../conteiner/Place');
+var Edit = require('../../conteiner/Edit');
 var Guides = require('../../conteiner/Guides');
 var Contacts = require('../../conteiner/Contacts');
 var Statistics = require('../statistics/Statistics');
@@ -25,6 +26,9 @@ module.exports = (
                 </Route>
                 <Route path="place"  name="Place" component={Place}>
                         <Route path="/place/:placeId" component={Place}/>
+                </Route>                
+                <Route path="edit"  name="Edit" component={Edit}>
+                        <Route path="/edit/:placeId" component={Edit}/>
                 </Route>
                 <Route path="infrastructure"  name="Infrastructure" component={Infrastructure}>
                         <Route path="/infrastructure/gport" component={Infrastructure}/>

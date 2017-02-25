@@ -11,7 +11,7 @@ var models  = require('../app/models');
 
 
 // load up the user model
-var User       = require('../app/oldModels/user');
+var User       = require('../app/models/user');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing

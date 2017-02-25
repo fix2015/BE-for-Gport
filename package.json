@@ -2,7 +2,7 @@
   "name": "first-webapp-react",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "server.js",
   "private": true,
   "scripts": {
     "watchold": "nodemon server.js && watchify -v -d -t [ babelify --presets [ es2015 react stage-2] ] main.js -o assets/compiled.js",
@@ -11,7 +11,7 @@
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
     "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js",
-    "start": "node ./server.js"
+    "start": "node server.js"
   },
   "author": "Tutorialzine",
   "license": "MIT",
@@ -38,7 +38,6 @@
     "jade": "~1.11.0",
     "method-override": "~1.0.0",
     "moment": "^2.10.2",
-    "mongoose": "~3.8.1",
     "morgan": "~1.0.0",
     "multer": "^1.1.0",
     "passport": "~0.1.17",

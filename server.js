@@ -73,10 +73,6 @@ var server = app.listen(process.env.PORT || 3000, function(){
 
 notification = socketIo(server);
 
-console.log('The magic happens on port ' + port);
-
-
-
 /**
  * Normalize a port into a number, string, or false.
  */

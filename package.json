@@ -5,13 +5,13 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "start": "node server.js",
     "watchold": "nodemon server.js && watchify -v -d -t [ babelify --presets [ es2015 react stage-2] ] main.js -o assets/compiled.js",
     "watch": "watchify -v -d -t [ babelify --presets [ es2015 react stage-2] ] main.js -o assets/compiled.js",
     "build": "NODE_ENV=production browserify -t [ reactify --es6 ] main.js | uglifyjs > assets/compiled.js",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
-    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js"
+    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js",
+    "start": "node ./server.js"
   },
   "author": "Tutorialzine",
   "license": "MIT",

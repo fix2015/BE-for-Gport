@@ -14,7 +14,8 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "5.7.*"
+    "node": "5.7.*",
+    "npm": "3.6.*"
   },
   "author": "Tutorialzine",
   "license": "MIT",

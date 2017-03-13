@@ -40,9 +40,9 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use(new VKontakteStrategy(
         {
-            clientID:     5646716, // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
-            clientSecret: 'TO4UtLdwdpGrtnvPZlWn',
-            callbackURL:  "http://localhost:8080/auth/vkontakte/callback",
+            clientID        : configAuth.vkAuth.clientID,
+            clientSecret    : configAuth.vkAuth.clientSecret,
+            callbackURL     : configAuth.vkAuth.callbackURL,
             scope: ['email'],
             profileFields: ['email', 'picture.type(large)']
         },

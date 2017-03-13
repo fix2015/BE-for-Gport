@@ -4,15 +4,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import store from "../../store"
+var config = require('../../components/config');
 
 class ProfileBlock extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            mainImg: config.domain + 'images/icon/unknown-user-pic.jpg'
+        }
+    }
+    componentDidMount() {
+        var image = this.props.user.photos ? this.props.user.photos :  config.domain  + '/images/icon/unknown-user-pic.jpg';
+        var img = new Image();
+        var self = this;
+        img.onload = function(){
+            self.setState({
+                mainImg : image
+            })
+        };
+        img.src = image;
+    }
     render(){
         var profile = this.props.user;
-        profile.photos = profile.photos ? profile.photos :  '/images/icon/unknown-user-pic.jpg';
         return (
             <div className="profile-block">
                 <div className="profile-block-img">
-                    <img className="profile-block-image" src={profile.photos}/>
+                    <img className="profile-block-image" src={this.state.mainImg}/>
                 </div>
                 <span className="profile-block-name">{profile.name}</span>
             </div>

@@ -4,20 +4,34 @@
 
 import React, { Component } from 'react'
 import Timestamp from 'react-timestamp';
+var config = require('../../components/config');
 
 class CommentsArea extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            mainImg: config.domain + 'images/default.png'
+        }
+    }
+    componentDidMount() {
+        var avatar  = this.props.comment.User ?  this.props.comment.User.photos : config.domain + 'images/default.png';
+        var img = new Image();
+        var self = this;
+        img.onload = function(){
+            self.setState({
+                mainImg : avatar
+            })
+        };
+        img.src = avatar;
     }
     render() {
         var data = this.props.comment,
-            img  = this.props.comment.User ?  this.props.comment.User.photos : "https://ssl.gstatic.com/accounts/ui/avatar_2x.png",
             editPermission = ((this.props.comment.User && this.props.comment.User.id == this.props.user.id) ? true : false);
         return (
             <div className="row">
                 <div className="col-sm-1">
                     <div className="thumbnail">
-                        <img className="img-responsive user-photo" src={img} />
+                        <img className="img-responsive user-photo" src={this.state.mainImg} />
                     </div>
                 </div>
                 <div className="col-sm-11">

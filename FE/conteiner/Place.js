@@ -36,7 +36,7 @@ class Place extends Component {
             description: '',
             destination: '',
             endPoint:endPoint,
-            mainImg:'',
+            mainImg:config.domain + 'images/default.png',
         }
     }
     getDataFromJSON(){
@@ -72,6 +72,13 @@ class Place extends Component {
         this.getDataFromJSON();
         const hashParts = window.location.hash.split('#');
         if(hashParts) this.changeAction(hashParts[1]);
+        let img = new Image();
+        img.onload = function(){
+            this.setState({
+                mainImg : config.domain + 'images/zport/'+ this.props.params.placeId + '/ico.jpg'
+            })
+        }.bind(this);
+        img.src = config.domain + 'images/zport/'+ this.props.params.placeId + '/ico.jpg';
     }
     changeAction(list){
         if(list=='maps'){
@@ -155,13 +162,7 @@ class Place extends Component {
                 return   <option value={data.name}>{data.label}</option>
             })
         let distance = this.state.legs.distance ? this.state.legs.distance.value : '';
-        let img = new Image();
-        img.onload = function(){
-            this.setState({
-                mainImg : config.domain + 'images/zport/'+ place.id + '/ico.jpg'
-            })
-        };
-        img.src = config.domain + 'images/zport/'+ place.id + '/ico.jpg';
+
         return (
             <div>
                 <div className="col-md-12 place-title">

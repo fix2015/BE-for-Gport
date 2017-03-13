@@ -36,7 +36,7 @@ class Place extends Component {
             description: '',
             destination: '',
             endPoint:endPoint,
-            mainImg:config.domain + 'images/default.png',
+            mainImg:config.domain + 'images/icon/default.png',
         }
     }
     getDataFromJSON(){

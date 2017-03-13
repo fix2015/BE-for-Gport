@@ -10,11 +10,11 @@ class ProfileBlock extends Component {
     constructor(props) {
         super(props);
         this.state={
-            mainImg: config.domain + 'images/icon/unknown-user-pic.jpg'
+            mainImg: config.domain + 'images/icon/unknown-user-pic.png'
         }
     }
     componentDidMount() {
-        var image = this.props.user.photos ? this.props.user.photos :  config.domain  + '/images/icon/unknown-user-pic.jpg';
+        var image = this.props.user.photos ? this.props.user.photos :  config.domain  + 'images/icon/unknown-user-pic.png';
         var img = new Image();
         var self = this;
         img.onload = function(){

@@ -4,17 +4,16 @@
 
 import React, { Component } from 'react'
 import Timestamp from 'react-timestamp';
-var config = require('../../components/config');
 
 class CommentsArea extends Component {
     constructor(props) {
         super(props);
         this.state={
-            mainImg: config.domain + 'images/default.png'
+            mainImg: config.domain  + 'images/icon/unknown-user-pic.png'
         }
     }
     componentDidMount() {
-        var avatar  = this.props.comment.User ?  this.props.comment.User.photos : config.domain + 'images/default.png';
+        var avatar  = this.props.comment.User ?  this.props.comment.User.photos : config.domain  + 'images/icon/unknown-user-pic.png';
         var img = new Image();
         var self = this;
         img.onload = function(){

@@ -9,7 +9,7 @@ export default class LocationItem extends Component {
         super(props);
         this.state={
             hover: true,
-            mainImg: config.domain + 'images/default.png'
+            mainImg: config.domain + 'images/icon/default.png'
         }
     }
     componentDidMount() {

@@ -67,7 +67,7 @@ export default class Guidelist extends Component {
     componentDidMount(){
         setTimeout(()=>{
             this.calcRoute({target: {value: 'bazarNew'}})
-        },200)
+        },1000)
     }
     render() {
         this.initMap();

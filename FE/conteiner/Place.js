@@ -35,7 +35,8 @@ class Place extends Component {
             url: '',
             description: '',
             destination: '',
-            endPoint:endPoint
+            endPoint:endPoint,
+            mainImg:'',
         }
     }
     getDataFromJSON(){
@@ -154,6 +155,13 @@ class Place extends Component {
                 return   <option value={data.name}>{data.label}</option>
             })
         let distance = this.state.legs.distance ? this.state.legs.distance.value : '';
+        let img = new Image();
+        img.onload = function(){
+            this.setState({
+                mainImg : config.domain + 'images/zport/'+ place.id + '/ico.jpg'
+            })
+        };
+        img.src = config.domain + 'images/zport/'+ place.id + '/ico.jpg';
         return (
             <div>
                 <div className="col-md-12 place-title">
@@ -172,8 +180,8 @@ class Place extends Component {
                 </div>
                 <div className="location-block col-md-12">
                     <div className="col-md-4">
-                            <a className="fancyimage" data-fancybox-group="group" href={config.domain + 'images/zport/'+ place.id + '/ico.jpg'}>
-                                <img className='img-responsive' src={config.domain + 'images/zport/'+ place.id + '/ico.jpg'}/>
+                            <a className="fancyimage" data-fancybox-group="group" href={this.state.mainImg}>
+                                <img className='img-responsive' src={this.state.mainImg}/>
                             </a>
                     </div>
                     <div className="col-md-8">

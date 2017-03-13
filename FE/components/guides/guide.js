@@ -60,7 +60,7 @@ export default class Guidelist extends Component {
                 })
                 directionsDisplay.setDirections(response);
             } else {
-                window.alert('Directions request failed due to ' + status);
+                // window.alert('Directions request failed due to ' + status);
             }
         });
     }

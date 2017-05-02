@@ -5,7 +5,7 @@ module.exports = {
     'vkAuth' : {
         'clientID'        : '5646716', // your App ID
         'clientSecret'    : 'TO4UtLdwdpGrtnvPZlWn', // your App Secret
-        'callbackURL'     : 'http://gport-map.tk/auth/facebook/callback'
+        'callbackURL'     : 'http://gport-map.tk/auth/vk/callback'
     },
     'facebookAuth' : {
         'clientID'        : '1652875785041795', // your App ID

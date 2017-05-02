@@ -29,6 +29,9 @@ Object.keys(db).forEach(function(modelName) {
     db[modelName].associate(db);
   }
 });
+// need if we will have pb with foreign key
+sequelize.query('PRAGMA foreign_keys = OFF;')
+sequelize.query('PRAGMA foreign_keys = ON')
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

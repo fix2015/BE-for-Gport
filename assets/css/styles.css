@@ -423,3 +423,21 @@ a.list-group-item span.createdAt {
 .mark-map-block .list-group{
     padding-right: 0;
 }
+.photo-gallery{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.uploadFileZone div{
+    width: auto !important;
+    height: 70px !important;
+    border-color: white !important;
+    cursor: pointer;
+
+}
+.uploadFileZone .dropzone-img{
+    width: auto !important;
+    height: 50px !important;
+    border-color: white !important
+
+}

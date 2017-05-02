@@ -81,5 +81,47 @@ module.exports = function(app) {
             res.redirect('/');
         });
     });
+    app.put('/place/:id', function (req, res){
+        var id = req.params.id;
+        req.assert('id', 'id is required').isInt();
+        var errors = req.validationErrors();
+        if( !errors){
+            models.Place.find(
+                {
+                    where: {
+                        id: id
+                    }
+                })
+                .then(function (place) {
+                    place.updateAttributes(req.body)
+                        .then(function (update_place) {
+                            res.statusCode = 200;
+                            res.json({
+                                title: 'place id -' + id + ' update',
+                                place: update_place,
+                                status: 'success'
+                            });
+                        }).catch(function (error) {
+                        res.statusCode = 404;
+                        res.json({
+                            title: error,
+                            place: '',
+                            status: 'error'
+                        });
+                    })
+
+
+                });
+        }else {
+            res.statusCode = 400;
+            res.json({
+                title: 'cant update place from this id',
+                message: 'cant update place from this id',
+                errors: errors,
+                status: 'error'
+            });
+        }
+
+    });
 
 }

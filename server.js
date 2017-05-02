@@ -65,6 +65,7 @@ require('./app/routes/comment')(app, comment); // load our routes for comment
 require('./app/routes/places')(app);
 require('./app/routes/edit')(app);
 require('./app/routes/rooms')(app);
+require('./app/routes/images')(app);
 // launch ======================================================================
 //app.listen(port);
 var server = app.listen(process.env.PORT || 3000, function(){

@@ -18,6 +18,8 @@ var directionsService = new google.maps.DirectionsService;
 var directionsDisplay = new google.maps.DirectionsRenderer;
 var Steps = require('./../components/guides/steps');
 import  Guidelist  from './../components/guides/guide';
+var Dropzone = require('react-dropzone');
+import update from 'react-addons-update';
 
 var endPoint = helper.endPoint
 
@@ -36,11 +38,34 @@ class Edit extends Component {
             url: '',
             description: '',
             destination: '',
-            endPoint:endPoint
+            endPoint:endPoint,
+            data:{
+                title: "",
+                type: "",
+                folder: "",
+                distance: "",
+                phone: "",
+                address: "",
+                description: "",
+                children: false,
+                conditioner: false,
+                dush: false,
+                eat: false,
+                toilet: false,
+                tv: false,
+                wifi: false,
+                refrigeter: false,
+                swiming: false,
+                lat: '',
+                lng: '',
+                Rooms: [],
+                Images: []
+            },
+            mainImg:''
         }
     }
     getDataFromJSON(){
-        var url =  config.domain + 'place/get/'+this.props.params.editId,
+        var url =  config.domain + 'place/get/'+this.props.params.placeId,
             self=this;
         $.ajax({
             type: "POST",
@@ -68,10 +93,16 @@ class Edit extends Component {
         })
     }
     componentDidMount() {
+        this.updateDate();
+    }
+    updateDate(){
         this.props.store.dispatch(setPlaceId(this.props.params.placeId));
         this.getDataFromJSON();
         const hashParts = window.location.hash.split('#');
         if(hashParts) this.changeAction(hashParts[1]);
+        setTimeout(function(){
+            this.setState({data: this.props.place});
+        }.bind(this),1000)
     }
     changeAction(list){
         if(list=='maps'){
@@ -148,8 +179,292 @@ class Edit extends Component {
             }
         }
     }
+    handleTitleChange(e){
+        this.setState({
+            data: update(this.state.data, {title: {$set: e.target.value}})
+        })
+    }
+    handleLatChange(){
+        this.setState({
+            data: update(this.state.data, {lat: {$set: e.target.value}})
+        })
+    }
+    handleLngChange(){
+        this.setState({
+            data: update(this.state.data, {lng: {$set: e.target.value}})
+        })
+    }
+    handleTypeChange(e){
+        this.setState({
+            data: update(this.state.data, {type: {$set: e.target.value}})
+        })
+    }
+    handleDistanceChange(e){
+        this.setState({
+            data: update(this.state.data, {distance: {$set: e.target.value}})
+        })
+    }
+    handlePhoneChange(e){
+        this.setState({
+            data: update(this.state.data, {phone: {$set: e.target.value}})
+        })
+    }
+    handleAddressChange(e){
+        this.setState({
+            data: update(this.state.data, {address: {$set: e.target.value}})
+        })
+    }
+    handleDescriptionChange(e){
+        this.setState({
+            data: update(this.state.data, {description: {$set: e.target.value}})
+        })
+    }
+    handleChildrenChange(e){
+        this.setState({
+            data: update(this.state.data, {children: {$set: e.target.value}})
+        })
+    }
+    handleConditionerChange(e){
+        this.setState({
+            data: update(this.state.data, {conditioner: {$set: e.target.value}})
+        })
+    }
+    handleDushChange(e){
+        this.setState({
+            data: update(this.state.data, {dush: {$set: e.target.value}})
+        })
+    }
+    handleEatChange(e){
+        this.setState({
+            data: update(this.state.data, {eat: {$set: e.target.value}})
+        })
+    }
+    handleToiletChange(e){
+        this.setState({
+            data: update(this.state.data, {toilet: {$set: e.target.value}})
+        })
+    }
+    handleTvChange(e){
+        this.setState({
+            data: update(this.state.data, {tv: {$set: e.target.value}})
+        })
+    }
+    handleWifiChange(e){
+        this.setState({
+            data: update(this.state.data, {wifi: {$set: e.target.value}})
+        })
+    }
+    handleRefrigeterChange(e){
+        this.setState({
+            data: update(this.state.data, {refrigeter: {$set: e.target.value}})
+        })
+    }
+    handleSwimingChange(e){
+        this.setState({
+            data: update(this.state.data, {swiming: {$set: e.target.value}})
+        })
+    }
+    handleLatChange(e){
+        this.setState({
+            data: update(this.state.data, {lat: {$set: e.target.value}})
+        })
+    }
+    handleLngChange(e){
+        this.setState({
+            data: update(this.state.data, {lng: {$set: e.target.value}})
+        })
+    }
+    updatePlace(){
+        var url =  config.domain + 'place/'+this.props.params.placeId,
+            self=this;
+        $.ajax({
+            type: "PUT",
+            url: url,
+            data: this.state.data,
+            dataType: "json",
+            success: function (obj) {
+                if(obj.status == 'success'){
+                    self.updateDate();
+                }else{
+                    console.log(obj.errors)
+                }
+            }
+        })
+    }
+    handleRoomTitleChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.title = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomConditionerChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.conditioner = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomDushChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.dush = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomToiletChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.toilet = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomTvChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.tv = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomWifiChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.wifi = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    handleRoomRefrigeterChange(e){
+        this.props.place.Rooms.map(function (data) {
+            if(data.id == e.target.id){
+                data.refrigeter = e.target.value
+            }
+        })
+        this.setState({data:this.props.place});
+    }
+    updateRoom(e){
+        var id = e.target.id,
+            url =  config.domain + 'room/'+id,
+            room = {},
+            self=this;
+        this.state.data.Rooms.map(function (data) {
+            if(data.id == id){
+                room = data;
+            }
+        })
+        $.ajax({
+            type: "PUT",
+            url: url,
+            data: room,
+            dataType: "json",
+            success: function (obj) {
+                if(obj.status == 'success'){
+                    self.updateDate();
+                }else{
+                    console.log(obj.errors)
+                }
+            }
+        })
+    }
+    updatePrice(e){
+        var id = e.target.id,
+            url =  config.domain + 'price/'+id,
+            price = {
+                price: e.target.value
+            },
+            self=this;
+
+        this.state.data.Rooms.map(function (data) {
+            data.Prices.map(function (price) {
+                if(price.id == id){
+                    price.price = e.target.value;
+                }
+            });
+        })
+
+        $.ajax({
+            type: "PUT",
+            url: url,
+            data: price,
+            dataType: "json",
+            success: function (obj) {
+                if(obj.status == 'success'){
+                    self.updateDate();
+                }else{
+                    console.log(obj.errors)
+                }
+            }
+        })
+    }
+    onDrop(id, typePlace, dataEmpty,  files) {
+
+        const type = typePlace == 'ico' ? 'zport' : typePlace;
+        const ico = typePlace == 'ico' ? 'true' : 'false'
+        const RoomId = type == 'room' ? id : '' ;
+        const PlaceId = type == 'zport' ? id : '' ;
+
+        let formData = new FormData();
+        formData.append("RoomId", RoomId);
+        formData.append("PlaceId", PlaceId);
+        formData.append("type", type);
+        formData.append("ico", ico);
+        formData.append("file", files[0]);
+        let self = this;
+
+        $.ajax({
+            method: 'POST',
+            data: formData,
+            url: config.be + 'upload',
+            cache: false,
+            dataType: 'json',
+            processData: false, // Don't process the files
+            contentType: false, // Set content type to false as jQuery will tell the server its a query string reque
+            success: function(data){
+                dataEmpty.updateDate();
+            }
+        });
+        // if (files && files[0]) {
+        //     var reader = new FileReader();
+        //     reader.onload = function (e) {
+        //         dataEmpty.setState({
+        //             mainImg: e.target.result
+        //         });
+        //     }.bind(this);
+        //
+        //     reader.readAsDataURL(files[0]);
+        // }
+    }
+
+    onOpenClick() {
+        this.refs.dropzone.open();
+    }
+
+    removeFoto() {
+        const id = arguments[0].target.dataset.id,
+              url =  config.domain + 'image/'+id,
+              self=this;
+        $.ajax({
+            type: "DELETE",
+            url: url,
+            data: JSON.stringify({id}),
+            dataType: "json",
+            success: function (obj) {
+                if(obj.status == 'success'){
+                    self.updateDate();
+                }else{
+                    console.log(obj.errors)
+                }
+            }
+        })
+    }
+
     render() {
-        var place = this.props.place;
+        var place = this.state.data;
         var end = this.state.endPoint
             .map(function(data){
                 return   <option value={data.name}>{data.label}</option>
@@ -159,61 +474,208 @@ class Edit extends Component {
         const buttonsInstance = (
             <ul className="list-group">
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-home"></i><Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.title}/>
+                    <i className="glyphicon glyphicon-home"></i>
+                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.title} onChange={this.handleTitleChange.bind(this)}/>
                 </li>
                 <li className="list-group-item">
                     <i className="glyphicon glyphicon-star"></i> Тип: {helper.type(data.type)}
-                    <Input type="select" name="type" id="type">
+                    <select type="select" name="type" id="type" value={data.type} onChange={this.handleTypeChange.bind(this)}>
                         {helper.filterData.type.map((val)=>{
                             return <option value={val}>{helper.type(val)}</option>
                         })}
-                    </Input>
+                    </select>
                 </li>
                 <li className="list-group-item">
                     <i className="glyphicon glyphicon-send"></i> Дистанция: {data.distance} м.
-                    <Input type="select" name="type" id="distance">
+                    <select type="select" name="type" id="distance" value={data.distance} onChange={this.handleDistanceChange.bind(this)}>
                         {helper.filterData.distance.map((val)=>{
                             return <option value={val}>{val}</option>
                         })}
-                    </Input>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-shopping-cart"></i> Удобства:  {data.toilet}
-                    <Input type="select" name="type" id="toilet">
+                    <i className="glyphicon glyphicon-shopping-cart"></i> Удобства:
+                    <select type="select" name="type" id="toilet" value={data.toilet} onChange={this.handleToiletChange.bind(this)}>
                         <option value="true">Есть</option>
                         <option value="false">Нет</option>
-                    </Input>
+                    </select>
                 </li>
                 <li className="list-group-item">
                     <i className="glyphicon glyphicon-equalizer"></i> Душ:
-                    <Input type="select" name="type" id="dush">
+                    <select type="select" name="type" id="dush" value={data.dush} onChange={this.handleDushChange.bind(this)}>
                         <option value="true">Есть</option>
                         <option value="false">Нет</option>
-                    </Input> 
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-expand"></i> TV: <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.tv}/>
+                    <i className="glyphicon glyphicon-expand"></i> TV:
+                    <select type="select" name="type" id="tv" value={data.tv} onChange={this.handleTvChange.bind(this)}>
+                        <option value="true">Есть</option>
+                        <option value="false">Нет</option>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-folder-close"></i> Холодильник: <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.refrigeter}/>
+                    <i className="glyphicon glyphicon-folder-close"></i> Холодильник:
+                    <select type="select" name="type" id="refrigeter" value={data.refrigeter} onChange={this.handleRefrigeterChange.bind(this)}>
+                        <option value="true">Есть</option>
+                        <option value="false">Нет</option>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-cloud"></i> Басейн: <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.swiming}/>
+                    <i className="glyphicon glyphicon-cloud"></i> Басейн:
+                    <select type="select" name="type" id="swiming" value={data.swiming} onChange={this.handleSwimingChange.bind(this)}>
+                        <option value="true">Есть</option>
+                        <option value="false">Нет</option>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-cd"></i> Wifi: <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.wifi}/>
+                    <i className="glyphicon glyphicon-cd"></i> Wifi:
+                    <select type="select" name="type" id="wifi" value={data.wifi} onChange={this.handleWifiChange.bind(this)}>
+                        <option value="true">Есть</option>
+                        <option value="false">Нет</option>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-apple"></i> Кухня:  <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.eat}/>
+                    <i className="glyphicon glyphicon-apple"></i> Кухня:
+                    <select type="select" name="type" id="eat" value={data.eat} onChange={this.handleEatChange.bind(this)}>
+                        <option value="true">Есть</option>
+                        <option value="false">Нет</option>
+                    </select>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-phone-alt"></i> Контакты: <span> <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.phone}/></span>
+                    <i className="glyphicon glyphicon-phone-alt"></i> Контакты:
+                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.phone} onChange={this.handlePhoneChange.bind(this)}/>
                 </li>
                 <li className="list-group-item">
-                    <i className="glyphicon glyphicon-map-marker"></i> Адрес: <span> <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.address}/></span>
+                    <i className="glyphicon glyphicon-map-marker"></i> Адрес:
+                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.address} onChange={this.handleAddressChange.bind(this)}/>
+                </li>
+                <li className="list-group-item">
+                    Описания:
+                    <textarea rows="10" cols="80" type="text" name="type" id="type" placeholder="with a placeholder" value={data.description} onChange={this.handleDescriptionChange.bind(this)}/>
+                </li>
+                <li className="list-group-item">
+                    Lat
+                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.lat} onChange={this.handleLatChange.bind(this)}/>
+                </li>
+                <li className="list-group-item">
+                    Lng
+                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.lng} onChange={this.handleLngChange.bind(this)}/>
+                </li>
+                <li className="list-group-item">
+                    <button className="btn-success" onClick={this.updatePlace.bind(this)}>Update</button>
                 </li>
             </ul>
         );
+
+        const roomBlock = this.state.data.Rooms ? this.state.data.Rooms.map((data, index) =>
+                <div className="col-md-12 main-block">
+                    <div className="col-md-12">
+                        <Input type="text" name="type" placeholder="with a placeholder" value={data.title} id={data.id} onChange={this.handleRoomTitleChange.bind(this)}/>
+                    </div>
+                    <div className="col-md-12 price-table-block">
+                        <div className="col-md-2"></div>
+                        <div className="col-md-4" >
+                            <table className="table price-table table-bordered table-striped" data-id={data.type}>
+                                <thead>
+                                <tr>
+                                    <th>Месяц</th>
+                                    <th>Цена</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    !data.Prices ?
+                                        <p>Загрузка...</p>
+                                        :
+                                        data.Prices.map((data, index) =>
+                                            <tr key={index}>
+                                                <td>{data.mounth}</td>
+                                                <td>
+                                                    <Input type="text" name="type" id="type" placeholder="with a placeholder" value={data.price} id={data.id} onChange={this.updatePrice.bind(this)}/>
+                                                </td>
+                                            </tr>
+                                        )
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="col-md-4">
+                            <table className="table price-table table-bordered table-striped" data-id={data.type}>
+                                <tbody>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-globe"></i> Кондиционер</td>
+                                    <td>
+                                        <select type="select" name="type" id="conditioner" value={data.conditioner} id={data.id} onChange={this.handleRoomConditionerChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-equalizer"></i> Душ в номере</td>
+                                    <td>
+                                        <select type="select" name="type" id="dush" value={data.dush}  id={data.id} onChange={this.handleRoomDushChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-shopping-cart"></i> Удобства в номере</td>
+                                    <td>
+                                        <select type="select" name="type" id="toilet" value={data.toilet} id={data.id} onChange={this.handleRoomToiletChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-folder-close"></i> Телевизор</td>
+                                    <td>
+                                        <select type="select" name="type" id="tv" value={data.tv}  id={data.id} onChange={this.handleRoomTvChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-cd"></i> WIFI</td>
+                                    <td>
+                                        <select type="select" name="type" id="wifi" value={data.wifi}  id={data.id} onChange={this.handleRoomWifiChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i className="glyphicon glyphicon-folder-close"></i> Холодильник</td>
+                                    <td>
+                                        <select type="select" name="type" id="refrigeter" value={data.refrigeter}  id={data.id} onChange={this.handleRoomRefrigeterChange.bind(this)}>
+                                            <option value="true">Есть</option>
+                                            <option value="false">Нет</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="col-md-2"></div>
+                        <div className="col-md-12">
+                            <div className="uploadFileZone col-xs-12">
+                                <Dropzone ref="dropzone" data-id={data.id} data-type='room' onDrop={this.onDrop.bind( null, data.id, 'room', this)} >
+                                    <img className="dropzone-img" src={config.domain + 'images/icon/plus.png'} />
+                                </Dropzone>
+                            </div>
+                            <FotoFolder key={data.id} data={data} edit="true" type="room" id={data.id} remove = {this.removeFoto.bind(this)}></FotoFolder>
+                        </div>
+                        <div className="col-md-12">
+                            <button className="btn-success pull-right" id={data.id}  onClick={this.updateRoom.bind(this)}>Update</button>
+                        </div>
+                    </div>
+                </div>
+            ) : '';
+
         return (
             <div>
                 <div className="col-md-12 place-title">
@@ -232,16 +694,17 @@ class Edit extends Component {
                 </div>
                 <div className="location-block col-md-12">
                     <div className="col-md-4">
-                        <input type="file" />
+                        <div className="uploadFileZone">
+                            <Dropzone ref="dropzone" data-id={this.state.data.id} data-type='ico' onDrop={this.onDrop.bind(null, this.state.data.id, 'ico', this)} >
+                                {this.state.mainImg ? <div>
+                                    <img src={this.state.mainImg}/>
+                                </div> : <div><img src={config.domain + 'images/zport/'+ this.state.data.id + '/ico.jpg'}/></div>}
+                            </Dropzone>
+                        </div>
                     </div>
                     <div className="col-md-8">
                         {buttonsInstance}
-                        <SmallInformationBoard data={place} edit="true"></SmallInformationBoard>
                     </div>
-                </div>
-                <div className="col-md-12 text-left">
-                    {place.description}
-
                 </div>
                 <div className="col-md-12 tabbable">
                     <ul className="nav nav-tabs">
@@ -252,7 +715,7 @@ class Edit extends Component {
                     </ul>
                     <div className="tab-content">
                         <div id="main" className={this.state.main ? 'tab-pane active' : 'tab-pane'}>
-                            <MainTable key={'mainTable-'+place.id} place={place}></MainTable>
+                            {roomBlock}
                         </div>
                         <div id="comments" className={this.state.comments ? 'tab-pane active' : 'tab-pane'}>
                             <Comments user={this.props.user} placeId={place.id}></Comments>
@@ -262,7 +725,14 @@ class Edit extends Component {
                                 !place.Images ?
                                     <span>Загрузки...</span>
                                     :
-                                    <FotoFolder key={place.id} data={place} type="zport" id={place.id}></FotoFolder>
+                                    <div className="">
+                                        <div className="uploadFileZone col-xs-12">
+                                            <Dropzone ref="dropzone" data-id={place.id} data-type='zport' onDrop={this.onDrop.bind(null, place.id, 'zport', this)} >
+                                                <img className="dropzone-img text-center" src={config.domain + 'images/icon/plus.png'} />
+                                            </Dropzone>
+                                        </div>
+                                        <FotoFolder key={place.id} data={place} edit="true" type="zport" id={place.id} remove = {this.removeFoto.bind(this)}></FotoFolder>
+                                    </div>
                             }
                         </div>
                         <div id="maps" className={this.state.maps ? 'tab-pane active' : 'tab-pane'}>
@@ -287,6 +757,10 @@ function mapStateToProps (state) {
 module.exports = connect(mapStateToProps)(Edit);
 
 /*
+ <SmallInformationBoard data={place} edit="true"></SmallInformationBoard>
+
+
+
  <Form>
  <FormGroup>
  <div className="col-md-3"><i className="glyphicon glyphicon-star"></i><Label for="type">Type</Label></div>

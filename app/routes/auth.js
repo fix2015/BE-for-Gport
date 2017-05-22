@@ -27,6 +27,11 @@ module.exports = function(app, passport) {
         req.user ? res.locals.userSettings = req.user : res.locals.userSettings = { type: 'guest', name:'guest', email:'guest', id:'guest'};
         res.statusCode = 200;
         res.render('index.ejs');
+    });    
+    app.get('/infrastructure/gport', function(req, res) {
+        req.user ? res.locals.userSettings = req.user : res.locals.userSettings = { type: 'guest', name:'guest', email:'guest', id:'guest'};
+        res.statusCode = 200;
+        res.render('index.ejs');
     });
     app.get('/', function(req, res) {
         req.user ? res.locals.userSettings = req.user : res.locals.userSettings = { type: 'guest', name:'guest', email:'guest', id:'guest'};

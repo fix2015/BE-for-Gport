@@ -16,4 +16,11 @@ node_modules
 easy-node-authentication.iml
 config/database.js
 config/auth.js
-.idea.
+.idea
+.DS_Store
+assets/.DS_Store
+assets/images/.DS_Store
+assets/images/icon/.DS_Store
+assets/images/room/.DS_Store
+assets/images/room/38/.DS_Store
+assets/images/zport/23/.DS_Store

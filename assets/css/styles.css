@@ -116,12 +116,8 @@ a.list-group-item span.createdAt {
 .list-group-item{
     text-align: left;
 }
-.location-title{
+.location-title {
     text-align: center;
-}
-.mark-map-block{
-    height: 650px;
-    overflow-y: scroll;
 }
 .location-block li {
     font-size: 14px;
@@ -641,4 +637,9 @@ a.list-group-item span.createdAt {
 .resp-sharing-button--pinterest:active {
     background-color: #8c0615;
     border-color: #8c0615;
+}
+.menu-fixed-block{
+    position: fixed;
+    width:355px;
+    top: 0px;
 }

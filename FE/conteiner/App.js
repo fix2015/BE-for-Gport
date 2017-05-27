@@ -41,6 +41,7 @@ class App extends Component {
             filter: this.props.filter,
             listNav:true,
             mapNav:false,
+            scroll: false,
         };
     }
     componentDidMount () {
@@ -50,6 +51,18 @@ class App extends Component {
         })
         const hashParts = window.location.hash.split('#');
         if(hashParts) this.changeAction(hashParts[1]);
+        window.onscroll = function() {
+            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            if(scrolled> 400){
+                this.setState({
+                    scroll: 'true'
+                })
+            }else{
+                this.setState({
+                    scroll: 'false'
+                })
+            };
+        }.bind(this)
     }
 	filterFunc(data){
         this.props.store.dispatch(fetchFilter());
@@ -148,7 +161,7 @@ class App extends Component {
                 <div className="col-md-12">
                     <div className="col-md-5">
                         <Auth></Auth>
-                        <div className="main-map-block">
+                        <div className={this.state.scroll=='true' ? 'main-map-block menu-fixed-block' : 'main-map-block'}>
                             <div className="col-md-12">
                                 <h2>Поиск жилья</h2>
                                 <SearchField locations={this.props.place} onSearch={this.searchForAddress.bind(this)} onFilterInput={this.handleFilterText.bind(this)} filterText={this.state.filterText}/>
